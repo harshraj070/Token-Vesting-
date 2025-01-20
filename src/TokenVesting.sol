@@ -27,17 +27,16 @@ contract TokenVesting is Ownable {
         _vestingDuration = vestingDuration;
     }
 
-    // Get contract token balance
+
     function getBalance() public view returns (uint256) {
         return token.balanceOf(address(this));
     }
 
-    // Deposit tokens into vesting contract
+
     function deposit(uint256 amount) external onlyOwner {
         token.transferFrom(msg.sender, address(this), amount);
     }
 
-    // Release vested tokens to beneficiary
     function release(uint256 amount) external {
         require(msg.sender == _beneficiary, "Not beneficiary");
         require(
